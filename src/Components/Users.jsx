@@ -7,6 +7,8 @@ function Users() {
   const [nameVal, setnameVal] = useState("");
   const [townValue, settownValue] = useState("");
   const [isDriver, setisDriver] = useState(false);
+  const [isEditOn, setisEditOn] = useState(false);
+  const [currentId, setcurrentId] = useState(0);
 
   // parsisiusti users ir iskonsolinti
   //sugeneruoti html
@@ -25,8 +27,32 @@ function Users() {
       .catch((err) => console.log(err));
   }
 
-  function handleNewUserSubmit(event) {
+  function handleSubmit(event) {
     event.preventDefault();
+    if (isEditOn) {
+      handleUpdateFetch();
+    } else {
+      handleNewUserSubmit();
+    }
+  }
+
+  function handleUpdateFetch() {
+    console.log("updating");
+    const updatedUser = {
+      name: nameVal,
+      town: townValue,
+      isDriver,
+    };
+    axios
+      .put(`${URL}/${currentId}`, updatedUser)
+      .then((ats) => setUsers(ats.data))
+      .catch((error) => {
+        console.warn("klaida", error);
+        console.warn(error.response.data);
+      });
+  }
+
+  function handleNewUserSubmit() {
     console.log("js is in control");
     // sudeti viska i viena obj
     const newUser = {
@@ -44,6 +70,9 @@ function Users() {
           // success useris sukurtas
           // atnaujinti sarasa
           getUsers();
+          setnameVal("");
+          settownValue("");
+          setisDriver(false);
           return;
         }
         // neskeme, nepavyko
@@ -64,12 +93,13 @@ function Users() {
     axios
       .delete(`${URL}/${id}`)
       .then((ats) => {
-        if (ats.status === 201) {
-          // success useris sukurtas
-          // atnaujinti sarasa
-          getUsers();
-          return;
-        }
+        // if (ats.status === 201) {
+        //   // success useris sukurtas
+        //   // atnaujinti sarasa
+        //   getUsers();
+        //   return;
+        // }
+        setUsers(ats.data);
       })
       .catch((error) => {
         console.warn("ivyko klaida:", error);
@@ -79,14 +109,25 @@ function Users() {
     // pavyko ar ne
   };
 
-  const handleEdit = (e) => {
-    const id = +e.target.id;
-    const name = users.filter((usersObj) => usersObj.id === id)[0].name;
-    const town = users.filter((usersObj) => usersObj.id === id)[0].town;
-    const isDriver = users.filter((usersObj) => usersObj.id === id)[0].isDriver;
-    setnameVal(name);
-    settownValue(town);
-    setisDriver(isDriver);
+  const handleEdit = (id) => {
+    // console.log(idToEdit);
+    // const id = +e.target.id;
+    // const name = users.filter((usersObj) => usersObj.id === id)[0].name;
+    // const town = users.filter((usersObj) => usersObj.id === id)[0].town;
+    // const isDriver = users.filter((usersObj) => usersObj.id === id)[0].isDriver;
+    // setnameVal(name);
+    // settownValue(town);
+    // setisDriver(isDriver);
+    setisEditOn(true);
+    fillFormData(id);
+    setcurrentId(id);
+  };
+
+  const fillFormData = (id) => {
+    const found = users.find((uObj) => uObj.id === id);
+    setnameVal(found.name);
+    settownValue(found.town);
+    setisDriver(found.isDriver);
   };
 
   return (
@@ -94,7 +135,7 @@ function Users() {
       <h2>Users</h2>
 
       <h3>Add new User</h3>
-      <form onSubmit={handleNewUserSubmit} className="border p-4 ">
+      <form onSubmit={handleSubmit} className="border p-4 ">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
             Name
@@ -131,9 +172,16 @@ function Users() {
             Driver
           </label>
         </div>
-        <button type="submit" className="btn btn-outline-info">
-          ADD
-        </button>
+        {isEditOn === false && (
+          <button type="submit" className="btn btn-outline-info">
+            ADD
+          </button>
+        )}
+        {isEditOn === true && (
+          <button type="submit" className="btn btn-secondary">
+            UPDATE
+          </button>
+        )}
       </form>
       <ul className="list-group">
         {users &&
@@ -150,7 +198,7 @@ function Users() {
               </button>
               <button
                 id={userObj.id}
-                onClick={handleEdit}
+                onClick={() => handleEdit(userObj.id)}
                 className="btn btn-success"
               >
                 edit
