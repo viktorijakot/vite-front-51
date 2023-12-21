@@ -9,6 +9,8 @@ function Users() {
   const [isDriver, setisDriver] = useState(false);
   const [isEditOn, setisEditOn] = useState(false);
   const [currentId, setcurrentId] = useState(0);
+  const [errorField, setErrorField] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   // parsisiusti users ir iskonsolinti
   //sugeneruoti html
@@ -27,8 +29,14 @@ function Users() {
       .catch((err) => console.log(err));
   }
 
+  function clearErrrors() {
+    setErrorField("");
+    setErrorMsg("");
+  }
+
   function handleSubmit(event) {
     event.preventDefault();
+    clearErrrors();
     if (isEditOn) {
       handleUpdateFetch();
     } else {
@@ -47,8 +55,10 @@ function Users() {
       .put(`${URL}/${currentId}`, updatedUser)
       .then((ats) => setUsers(ats.data))
       .catch((error) => {
-        console.warn("klaida", error);
-        console.warn(error.response.data);
+        const { status, data } = error.response;
+        console.log("data ===", data);
+        setErrorField(data.field);
+        setErrorMsg(data.error);
       });
   }
 
@@ -80,7 +90,13 @@ function Users() {
       .catch((error) => {
         console.warn("ivyko klaida:", error);
         // show errors
-        alert("klaida");
+        const { status, data } = error.response;
+        if (status === 400) {
+          // handleError(data)
+          console.log("data ===", data);
+          setErrorField(data.field);
+          setErrorMsg(data.error);
+        }
       });
     // pavyko ar ne
   }
@@ -141,24 +157,34 @@ function Users() {
             Name
           </label>
           <input
-            className="form-control"
+            className={`form-control ${
+              errorField === "name" ? "is-invalid" : ""
+            }`}
             value={nameVal}
             type="text"
             id="name"
             onChange={(e) => setnameVal(e.target.value)}
           />
+          {errorField === "name" && (
+            <span className="text-danger">{errorMsg}</span>
+          )}
         </div>
         <div className="mb-3">
           <label htmlFor="town" className="form-label">
             Town
           </label>
           <input
-            className="form-control"
+            className={`form-control ${
+              errorField === "town" ? "is-invalid" : ""
+            }`}
             type="text"
             id="town"
             value={townValue}
             onChange={(e) => settownValue(e.target.value)}
           />
+          {errorField === "town" && (
+            <span className="text-danger">{errorMsg}</span>
+          )}
         </div>
         <div className="mb-3 form-check">
           <input
