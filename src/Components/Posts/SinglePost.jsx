@@ -6,7 +6,7 @@ const postObj = {
   content: "Body of post 1",
   date: "2023-12-26T22:00:00.000Z",
   commentCount: 1,
-  categoryName: "Comedy",
+  catagoryName: "Comedy",
 };
 
 function SinglePost({ post }) {
@@ -18,7 +18,7 @@ function SinglePost({ post }) {
         <p className="card-text">{post.content}</p>
         <p className="card-text">Date: {post.date}</p>
         <p className="card-text">Comment Count: {post.commentCount}</p>
-        <p className="card-text">Category: {post.categoryName}</p>
+        <p className="card-text">Category: {post.catagoryName}</p>
       </div>
     </li>
   );
@@ -31,7 +31,7 @@ SinglePost.propTypes = {
     content: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
     commentCount: PropTypes.number,
-    categoryName: PropTypes.string.isRequired,
+    catagoryName: PropTypes.string.isRequired,
   }),
 };
 export default SinglePost;
