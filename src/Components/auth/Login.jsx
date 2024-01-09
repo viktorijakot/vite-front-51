@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-function Login() {
+function Login({ onLogin }) {
   const [authState, setAuthState] = useState({
     email: "",
     password: "",
@@ -32,13 +32,19 @@ function Login() {
       .then((resp) => {
         console.log(resp);
         const { token } = resp.data;
-        console.log(token);
-        //issaugoti token i local storage
-        localStorage.setItem("bit_token", token);
+        if (token) {
+          //handle success
+          console.log(token);
+          //issaugoti token i local storage
+          localStorage.setItem("bit_token", token);
+          onLogin(authState.email);
+        }
       })
       .catch((error) => {
         console.warn(error);
         const errorAxios = error.response.error;
+        console.log("errorAxios ===", errorAxios);
+        //handle error
       });
   }
 
