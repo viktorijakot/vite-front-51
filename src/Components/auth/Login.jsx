@@ -45,22 +45,38 @@ function Login() {
   return (
     <div>
       <h2>Login</h2>
-      <form noValidate onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="email"
-          name="email"
-          value={authState.email}
-          onChange={handleInput}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          value={authState.password}
-          onChange={handleInput}
-        />
-        <button type="submit">Login</button>
+      <form onSubmit={handleLogin} noValidate>
+        <div className="mb-3">
+          <label htmlFor="exampleInputEmail1" className="form-label">
+            Email address
+          </label>
+          <input
+            onChange={handleInput}
+            value={authState.email}
+            type="email"
+            name="email"
+            className="form-control"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+          />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Password
+          </label>
+          <input
+            onChange={handleInput}
+            value={authState.password}
+            name="password"
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
       </form>
     </div>
   );
