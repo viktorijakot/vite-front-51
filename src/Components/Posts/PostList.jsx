@@ -1,4 +1,5 @@
 import SinglePost from "./SinglePost";
+import PropTypes from "prop-types";
 
 function PostsList({ list }) {
   return (
@@ -7,11 +8,14 @@ function PostsList({ list }) {
 
       <ul className="unlisted grid-2">
         {list.map((post) => (
-          <SinglePost key={post.id} post={post} />
+          <SinglePost key={post.post_id} post={post} />
         ))}
       </ul>
     </div>
   );
 }
 
+PostsList.propTypes = {
+  list: PropTypes.array,
+};
 export default PostsList;

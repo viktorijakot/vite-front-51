@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 function Header({ isUserLoggedIn, email, logout }) {
   //to do propTYPES validation
   return (
@@ -54,5 +55,11 @@ function Header({ isUserLoggedIn, email, logout }) {
     </div>
   );
 }
+
+Header.propTypes = {
+  isUserLoggedIn: PropTypes.bool.isRequired,
+  email: PropTypes.string,
+  logout: PropTypes.func.isRequired,
+};
 
 export default Header;
