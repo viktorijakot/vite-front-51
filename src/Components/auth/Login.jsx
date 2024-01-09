@@ -49,7 +49,7 @@ function Login({ onLogin }) {
   }
 
   return (
-    <div>
+    <div className="container">
       <h2>Login</h2>
       <form onSubmit={handleLogin} noValidate>
         <div className="mb-3">

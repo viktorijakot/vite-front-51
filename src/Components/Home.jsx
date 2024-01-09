@@ -1,7 +1,7 @@
-function About() {
+function Home() {
   return (
     <div className="container">
-      <h2 className="display-3">About</h2>
+      <h2 className="display-3">HOME</h2>
       <p className="lead">Lorem</p>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro unde
@@ -13,4 +13,4 @@ function About() {
   );
 }
 
-export default About;
+export default Home;

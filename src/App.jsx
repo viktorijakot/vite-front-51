@@ -5,6 +5,9 @@ import "./App.css";
 import Login from "./Components/auth/Login";
 import Header from "./Components/layout/Header";
 import PostList from "./Components/Posts/PostList";
+import About from "./Components/About";
+import { Route, Routes } from "react-router-dom";
+import Home from "./Components/Home";
 
 function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
@@ -43,18 +46,36 @@ function App() {
     setIsUserLoggedIn(false);
     setUserEmail("");
   }
+
   return (
-    <div className="container">
+    <div className="">
       <Header
         isUserLoggedIn={isUserLoggedIn}
         email={userEmail}
         logout={logout}
       />
-      {!isUserLoggedIn && <Login onLogin={handleLogin} />}
+      <Routes>
+        <Route path="/home" element={<Home />} />
+        <Route
+          path="/login"
+          element={
+            <>
+              {!isUserLoggedIn && <Login onLogin={handleLogin} />}
+              {isUserLoggedIn && (
+                <div className="alert alert-success">You have logged in</div>
+              )}
+            </>
+          }
+        />
+        <Route path="/posts" element={<PostList list={posts} />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+      {/* {!isUserLoggedIn && <Login onLogin={handleLogin} />}
       {isUserLoggedIn && (
         <div className="alert alert-success">You have logged in</div>
-      )}
-      <PostList list={posts} />
+      )} */}
+      {/* // <PostList list={posts} />
+      // <About /> */}
     </div>
   );
 }

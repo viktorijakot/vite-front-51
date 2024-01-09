@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 function Header({ isUserLoggedIn, email, logout }) {
   //to do propTYPES validation
   return (
@@ -24,28 +25,28 @@ function Header({ isUserLoggedIn, email, logout }) {
             id="navbarNavAltMarkup"
           >
             <div className="navbar-nav">
-              <a className="nav-link" href="#">
+              <Link className="nav-link" to="/home">
                 Home
-              </a>
-              <a className="nav-link" href="#">
+              </Link>
+              <Link className="nav-link" to="/posts">
                 Posts
-              </a>
-              <a className="nav-link" href="#">
+              </Link>
+              <Link className="nav-link" to="/about">
                 About
-              </a>
+              </Link>
               {!isUserLoggedIn && (
-                <a className="nav-link" href="#">
+                <Link className="nav-link" to="/login">
                   Login
-                </a>
+                </Link>
               )}
               {isUserLoggedIn && (
                 <>
-                  <a className="nav-link" href="#" onClick={logout}>
+                  <Link className="nav-link" to="#" onClick={logout}>
                     Logout
-                  </a>
-                  <a className="nav-link disabled" href="#">
+                  </Link>
+                  <Link className="nav-link disabled" to="#">
                     {email}
-                  </a>
+                  </Link>
                 </>
               )}
             </div>

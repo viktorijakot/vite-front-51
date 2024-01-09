@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 function PostsList({ list }) {
   return (
-    <div>
+    <div className="container">
       <h2 className="display-3">Our posts</h2>
 
       <ul className="unlisted grid-2">
