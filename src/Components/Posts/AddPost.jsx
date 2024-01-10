@@ -1,65 +1,85 @@
-function AddPost({ handleAdd }) {
+import { Formik, useFormik } from "formik";
+function AddPost() {
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      author: "",
+      content: "",
+      date: "",
+      cat_id: 1,
+    },
+    onSubmit: (valuesObj) => {
+      console.log(valuesObj);
+      // isiusti su axios
+    },
+  });
   return (
     <div className="container">
-      <form onSubmit={handleAdd}>
-        <div class="mb-3">
-          <label for="formGroupExampleInput" class="form-label">
+      <form onSubmit={formik.handleSubmit}>
+        <div className="mb-3">
+          <label htmlFor="formGroupExampleInput" className="form-label">
             Title
           </label>
           <input
+            onChange={formik.handleChange}
+            value={formik.values.title}
             name="title"
             type="text"
-            class="form-control"
+            className="form-control"
             id="formGroupExampleInput"
-            placeholder="Title"
           />
         </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="formGroupExampleInput2" className="form-label">
             Author
           </label>
           <input
+            onChange={formik.handleChange}
+            value={formik.values.author}
             name="author"
             type="text"
-            class="form-control"
+            className="form-control"
             id="formGroupExampleInput2"
-            placeholder="Author"
           />
         </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="formGroupExampleInput2" className="form-label">
             Date
           </label>
           <input
+            onChange={formik.handleChange}
+            value={formik.values.date}
             name="date"
-            type="date"
-            class="form-control"
+            type="datetime-local"
+            className="form-control"
             id="formGroupExampleInput2"
-            placeholder="Date"
           />
         </div>
-        <div class="mb-3">
-          <label for="formGroupExampleInput2" class="form-label">
+        <div className="mb-3">
+          <label htmlFor="formGroupExampleInput2" className="form-label">
             Content
           </label>
           <textarea
+            onChange={formik.handleChange}
+            value={formik.values.content}
             name="content"
             type="text"
-            class="form-control"
+            className="form-control"
             id="formGroupExampleInput2"
-            placeholder="Content"
           />
         </div>
-        <select name="catagory" class="form-select form-select-lg mb-3">
+        <select
+          onChange={formik.handleChange}
+          value={formik.values.cat_id}
+          name="cat_id"
+          className="form-select form-select-lg mb-3"
+        >
           <option selected disabled>
             Select Category
           </option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
         </select>
         <div>
-          <button type="submit" className="btn btn-primary">
+          <button type="submit" classNameName="btn btn-primary">
             Create Post
           </button>
         </div>

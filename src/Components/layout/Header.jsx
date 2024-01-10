@@ -1,5 +1,5 @@
 // import PropTypes from "prop-types";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useAuthContext } from "../../store/authContext";
 
 function Header() {
@@ -36,8 +36,8 @@ function Header() {
                   <NavLink className="nav-link" to="/posts">
                     Posts
                   </NavLink>
-                  <NavLink className="nav-link" to="/add">
-                    Add
+                  <NavLink className="nav-link" to="/add-post">
+                    Add Post
                   </NavLink>
                 </>
               )}
@@ -51,12 +51,12 @@ function Header() {
               )}
               {isUserLoggedIn && (
                 <>
-                  <NavLink className="nav-link" to="#" onClick={logout}>
+                  <Link className="nav-link" to="#" onClick={logout}>
                     Logout
-                  </NavLink>
-                  <NavLink className="nav-link disabled" to="#">
+                  </Link>
+                  <Link className="nav-link disabled" to="#">
                     {email}
-                  </NavLink>
+                  </Link>
                 </>
               )}
             </div>

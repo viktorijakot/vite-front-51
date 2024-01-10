@@ -8,3 +8,8 @@
   list-style: none;
   padding-left: 0;
 }
+
+.navbar-nav .nav-link.active {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}

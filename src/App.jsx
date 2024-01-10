@@ -78,9 +78,15 @@ function App() {
             isUserLoggedIn ? <PostList /> : <Navigate to={"/users-only"} />
           }
         />
+        <Route
+          path="/add-post"
+          element={
+            isUserLoggedIn ? <AddPost /> : <Navigate to={"/users-only"} />
+          }
+        />
         <Route path="/home" element={<Navigate to={"/"} />} />
         <Route path="/users-only" element={<UsersOnlyPage />} />
-        <Route path="/add" element={<AddPost handleAdd={handleAdd} />} />
+        {/* <Route path="/add" element={<AddPost handleAdd={handleAdd} />} /> */}
         <Route path="/about" element={<About />} />
       </Routes>
       {/* {!isUserLoggedIn && <Login onLogin={handleLogin} />}
