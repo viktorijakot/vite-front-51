@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
+import { useAuthContext } from "../../store/authContext";
+import { useNavigate } from "react-router-dom";
 
-function Login({ onLogin }) {
+function Login() {
+  const navigate = useNavigate();
+  // pasiimti is konteksto
+  const { login } = useAuthContext();
   const [authState, setAuthState] = useState({
     email: "",
     password: "",
@@ -35,9 +40,11 @@ function Login({ onLogin }) {
         if (token) {
           //handle success
           console.log(token);
+          login(token, authState.email);
+          navigate("/posts");
           //issaugoti token i local storage
-          localStorage.setItem("bit_token", token);
-          onLogin(authState.email);
+          //   localStorage.setItem("bit_token", token);
+          //   onLogin(authState.email);
         }
       })
       .catch((error) => {

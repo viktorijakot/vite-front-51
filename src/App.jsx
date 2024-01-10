@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import "./App.css";
 // import Users from "./Components/Users";
 import Login from "./Components/auth/Login";
@@ -9,10 +8,11 @@ import About from "./Components/About";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import AddPost from "./Components/Posts/AddPost";
+import { useAuthContext } from "./store/authContext";
 
 function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+  // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  // const [userEmail, setUserEmail] = useState("");
   // const postUrl = "http://localhost:3000/api/posts/";
 
   // //parsisiusti postus ir paduoti i postList
@@ -37,25 +37,25 @@ function App() {
   //   }
   // }, []);
 
-  function handleLogin(email) {
-    console.log("user logged in", email);
-    setIsUserLoggedIn(true);
-    setUserEmail(email);
-  }
+  // function handleLogin(email) {
+  //   console.log("user logged in", email);
+  //   setIsUserLoggedIn(true);
+  //   setUserEmail(email);
+  // }
 
-  function logout() {
-    setIsUserLoggedIn(false);
-    setUserEmail("");
-  }
+  // function logout() {
+  //   setIsUserLoggedIn(false);
+  //   setUserEmail("");
+  // }
 
   function handleAdd(data) {}
-
+  const { isUserLoggedIn } = useAuthContext();
   return (
     <div className="">
       <Header
-        isUserLoggedIn={isUserLoggedIn}
-        email={userEmail}
-        logout={logout}
+      // isUserLoggedIn={isUserLoggedIn}
+      // email={userEmail}
+      // logout={logout}
       />
       <Routes>
         <Route path="/home" element={<Home />} />
@@ -63,7 +63,7 @@ function App() {
           path="/login"
           element={
             <>
-              {!isUserLoggedIn && <Login onLogin={handleLogin} />}
+              {!isUserLoggedIn && <Login />}
               {isUserLoggedIn && (
                 <div className="alert alert-success">You have logged in</div>
               )}
