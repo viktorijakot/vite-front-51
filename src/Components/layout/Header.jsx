@@ -31,12 +31,16 @@ function Header() {
               <NavLink className="nav-link" to="/home">
                 Home
               </NavLink>
-              <NavLink className="nav-link" to="/posts">
-                Posts
-              </NavLink>
-              <NavLink className="nav-link" to="/add">
-                Add
-              </NavLink>
+              {isUserLoggedIn && (
+                <>
+                  <NavLink className="nav-link" to="/posts">
+                    Posts
+                  </NavLink>
+                  <NavLink className="nav-link" to="/add">
+                    Add
+                  </NavLink>
+                </>
+              )}
               <NavLink className="nav-link" to="/about">
                 About
               </NavLink>

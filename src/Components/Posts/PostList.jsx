@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import SinglePost from "./SinglePost";
 import PropTypes from "prop-types";
 import axios from "axios";
+import { useAuthContext } from "../../store/authContext";
 
 function PostsList() {
   //parsisiusti postus ir paduoti i postList
   const [posts, setPosts] = useState([]);
   const postUrl = "http://localhost:3000/api/posts/";
-  const tokenStorage = localStorage.getItem("bit_token");
-  const [token, setToken] = useState(tokenStorage);
+  //   const tokenStorage = localStorage.getItem("bit_token");
+  //   const [token, setToken] = useState(tokenStorage);
+  const { token } = useAuthContext();
 
   // parisisiusti postus ir paduoti i postsLIst
 

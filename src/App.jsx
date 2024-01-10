@@ -5,10 +5,11 @@ import Login from "./Components/auth/Login";
 import Header from "./Components/layout/Header";
 import PostList from "./Components/Posts/PostList";
 import About from "./Components/About";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
 import AddPost from "./Components/Posts/AddPost";
 import { useAuthContext } from "./store/authContext";
+import UsersOnlyPage from "./pages/UsersOnlyPage";
 
 function App() {
   // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -70,7 +71,15 @@ function App() {
             </>
           }
         />
-        <Route path="/posts" element={<PostList />} />
+        {/*protected route*/}
+        <Route
+          path="/posts"
+          element={
+            isUserLoggedIn ? <PostList /> : <Navigate to={"/users-only"} />
+          }
+        />
+        <Route path="/home" element={<Navigate to={"/"} />} />
+        <Route path="/users-only" element={<UsersOnlyPage />} />
         <Route path="/add" element={<AddPost handleAdd={handleAdd} />} />
         <Route path="/about" element={<About />} />
       </Routes>
