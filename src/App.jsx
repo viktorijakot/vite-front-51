@@ -8,33 +8,34 @@ import PostList from "./Components/Posts/PostList";
 import About from "./Components/About";
 import { Route, Routes } from "react-router-dom";
 import Home from "./Components/Home";
+import AddPost from "./Components/Posts/AddPost";
 
 function App() {
-  const [isUserLoggedIn, setIsUserLoggedIn] = useState(true);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
-  const postUrl = "http://localhost:3000/api/posts/";
+  // const postUrl = "http://localhost:3000/api/posts/";
 
-  //parsisiusti postus ir paduoti i postList
-  const [posts, setPosts] = useState([]);
+  // //parsisiusti postus ir paduoti i postList
+  // const [posts, setPosts] = useState([]);
 
-  // parisisiusti postus ir paduoti i postsLIst
+  // // parisisiusti postus ir paduoti i postsLIst
 
-  useEffect(() => {
-    getPosts(postUrl);
-    function getPosts(url) {
-      console.log("getPosts");
-      axios
-        .get(url)
-        .then((response) => {
-          console.log("response ===", response);
-          const posts = response.data;
-          setPosts(posts);
-        })
-        .catch((error) => {
-          console.log("error ===", error);
-        });
-    }
-  }, []);
+  // useEffect(() => {
+  //   getPosts(postUrl);
+  //   function getPosts(url) {
+  //     console.log("getPosts");
+  //     axios
+  //       .get(url)
+  //       .then((response) => {
+  //         console.log("response ===", response);
+  //         const posts = response.data;
+  //         setPosts(posts);
+  //       })
+  //       .catch((error) => {
+  //         console.log("error ===", error);
+  //       });
+  //   }
+  // }, []);
 
   function handleLogin(email) {
     console.log("user logged in", email);
@@ -46,6 +47,8 @@ function App() {
     setIsUserLoggedIn(false);
     setUserEmail("");
   }
+
+  function handleAdd(data) {}
 
   return (
     <div className="">
@@ -67,7 +70,8 @@ function App() {
             </>
           }
         />
-        <Route path="/posts" element={<PostList list={posts} />} />
+        <Route path="/posts" element={<PostList />} />
+        <Route path="/add" element={<AddPost handleAdd={handleAdd} />} />
         <Route path="/about" element={<About />} />
       </Routes>
       {/* {!isUserLoggedIn && <Login onLogin={handleLogin} />}
