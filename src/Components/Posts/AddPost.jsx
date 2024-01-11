@@ -2,45 +2,8 @@ import axios from "axios";
 import { useFormik } from "formik";
 import { useAuthContext } from "../../store/authContext";
 import * as Yup from "yup";
+import SmartInput from "../UI/SmartInput";
 
-function SmartInput({ id, formik, type = "text" }) {
-  //id = title
-  const areaInput = (
-    <textarea
-      onChange={formik.handleChange}
-      onBlur={formik.handleBlur}
-      value={formik.values[id]}
-      name={id}
-      type="text"
-      className="form-control"
-      id={id}
-      rows="3"
-    />
-  );
-  return (
-    <>
-      <label className="form-label w-100">
-        <span>{id.charAt(0).toUpperCase() + id.slice(1)}</span>
-        {type === "textarea" ? (
-          areaInput
-        ) : (
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values[id]}
-            name={id}
-            type={type}
-            className="form-control"
-            id={id}
-          />
-        )}
-      </label>
-      {formik.touched[id] && formik.errors[id] && (
-        <p className="text-danger">{formik.errors[id]}</p>
-      )}
-    </>
-  );
-}
 function AddPost() {
   const url = "http://localhost:3000/api/posts";
 
@@ -130,9 +93,7 @@ function AddPost() {
           name="cat_id"
           className="form-select form-select-lg mb-3"
         >
-          <option disabled defaultValue>
-            Select Category
-          </option>
+          <option defaultValue>Select Category</option>
           {categotries.map((cat) => (
             <option key={cat.cat_id} value={cat.cat_id}>
               {cat.title}
