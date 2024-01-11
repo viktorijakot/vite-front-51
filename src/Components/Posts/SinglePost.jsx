@@ -16,7 +16,9 @@ function SinglePost({ post }) {
         <h5 className="card-title">{post.title}</h5>
         <h6 className="card-subtitle mb-2 text-muted">{post.author}</h6>
         <p className="card-text">{post.content}</p>
-        <p className="card-text">Date: {post.date}</p>
+        <p className="card-text">
+          Date: {new Date(post.date).toLocaleDateString("lt")}
+        </p>
         <p className="card-text">Comment Count: {post.commentCount}</p>
         <p className="card-text">Category: {post.catagoryName}</p>
       </div>
