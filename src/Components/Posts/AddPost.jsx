@@ -3,6 +3,44 @@ import { useFormik } from "formik";
 import { useAuthContext } from "../../store/authContext";
 import * as Yup from "yup";
 
+function SmartInput({ id, formik, type = "text" }) {
+  //id = title
+  const areaInput = (
+    <textarea
+      onChange={formik.handleChange}
+      onBlur={formik.handleBlur}
+      value={formik.values[id]}
+      name={id}
+      type="text"
+      className="form-control"
+      id={id}
+      rows="3"
+    />
+  );
+  return (
+    <>
+      <label className="form-label w-100">
+        <span>{id.charAt(0).toUpperCase() + id.slice(1)}</span>
+        {type === "textarea" ? (
+          areaInput
+        ) : (
+          <input
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values[id]}
+            name={id}
+            type={type}
+            className="form-control"
+            id={id}
+          />
+        )}
+      </label>
+      {formik.touched[id] && formik.errors[id] && (
+        <p className="text-danger">{formik.errors[id]}</p>
+      )}
+    </>
+  );
+}
 function AddPost() {
   const url = "http://localhost:3000/api/posts";
 
@@ -40,13 +78,13 @@ function AddPost() {
       author: "",
       content: "",
       date: "",
-      cat_id: 0,
+      cat_id: "",
     },
     validationSchema: Yup.object({
       title: Yup.string().min(3).required("Privalomas laukas"),
       author: Yup.string().min(3).required(),
-      content: Yup.string().min(3).required(),
-      date: Yup.string().min(3).required(),
+      content: Yup.string().min(5, "Prasom placiau").required(),
+      date: Yup.date().required(),
       cat_id: Yup.number().min(1).required(),
     }),
     onSubmit: (valuesObj) => {
@@ -74,72 +112,16 @@ function AddPost() {
     <div className="container">
       <form onSubmit={formik.handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput" className="form-label">
-            Title
-          </label>
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.title}
-            name="title"
-            type="text"
-            className="form-control"
-            id="formGroupExampleInput"
-          />
-          {formik.touched.title && formik.errors.title && (
-            <p className="text-danger">{formik.errors.title}</p>
-          )}
+          <SmartInput id="title" formik={formik} />
         </div>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">
-            Author
-          </label>
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.author}
-            name="author"
-            type="text"
-            className="form-control"
-            id="formGroupExampleInput2"
-          />
-          {formik.touched.author && formik.errors.author && (
-            <p className="text-danger">{formik.errors.author}</p>
-          )}
+          <SmartInput id="author" formik={formik} />
         </div>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">
-            Date
-          </label>
-          <input
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.date}
-            name="date"
-            type="datetime-local"
-            className="form-control"
-            id="formGroupExampleInput2"
-          />
-          {formik.touched.date && formik.errors.date && (
-            <p className="text-danger">{formik.errors.date}</p>
-          )}
+          <SmartInput id="date" type="date" formik={formik} />
         </div>
         <div className="mb-3">
-          <label htmlFor="formGroupExampleInput2" className="form-label">
-            Content
-          </label>
-          <textarea
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.content}
-            name="content"
-            type="text"
-            className="form-control"
-            id="formGroupExampleInput2"
-          />
-          {formik.touched.content && formik.errors.content && (
-            <p className="text-danger">{formik.errors.content}</p>
-          )}
+          <SmartInput id="content" type="textarea" formik={formik} />
         </div>
         <select
           onChange={formik.handleChange}
@@ -148,7 +130,9 @@ function AddPost() {
           name="cat_id"
           className="form-select form-select-lg mb-3"
         >
-          <option defaultValue>Select Category</option>
+          <option disabled defaultValue>
+            Select Category
+          </option>
           {categotries.map((cat) => (
             <option key={cat.cat_id} value={cat.cat_id}>
               {cat.title}
