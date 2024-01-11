@@ -41,14 +41,17 @@ function AddPost() {
       author: "",
       content: "",
       date: "",
-      cat_id: "",
+      cat_id: 0,
     },
     validationSchema: Yup.object({
       title: Yup.string().min(3).required("Privalomas laukas"),
       author: Yup.string().min(3).required(),
       content: Yup.string().min(5, "Prasom placiau").required(),
-      date: Yup.date().required(),
-      cat_id: Yup.number().min(1).required(),
+      date: Yup.date().required("you have to choose date"),
+      cat_id: Yup.number()
+        .integer()
+        .min(1, "You have to choose category")
+        .required("You have to choose category"),
     }),
     onSubmit: (valuesObj) => {
       console.log(valuesObj);
@@ -95,7 +98,9 @@ function AddPost() {
           name="cat_id"
           className="form-select form-select-lg mb-3"
         >
-          <option defaultValue>Select Category</option>
+          <option value={0} disabled defaultValue>
+            Select Category
+          </option>
           {categotries.map((cat) => (
             <option key={cat.cat_id} value={cat.cat_id}>
               {cat.title}
