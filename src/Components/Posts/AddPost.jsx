@@ -68,7 +68,9 @@ function AddPost() {
         console.log(resp);
       })
       .catch((error) => {
+        const errorObjFromBackEnd = error.response.data;
         console.warn("ivyko klaida", error.response.data);
+        formik.setErrors(errorObjFromBackEnd);
       });
   }
   return (
