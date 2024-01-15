@@ -34,6 +34,10 @@ function CommentsForm() {
         })
         .then((resp) => {
           console.log(resp);
+          if (resp.status === 201) {
+            // setCommArr([...commArr, {comm_id: resp.data.comm_id, ...data}])
+            formik.resetForm();
+          }
         })
         .catch((error) => {
           const errorObjFromBackEnd = error.response.data;
@@ -45,7 +49,7 @@ function CommentsForm() {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
+      <form className="mb-5" onSubmit={formik.handleSubmit}>
         <div className="mb-3">
           <SmartInput id="comment" type="textarea" formik={formik} />
         </div>

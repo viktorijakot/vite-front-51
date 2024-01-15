@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useAuthContext } from "../store/authContext";
 import Comments from "./Comments";
+
 import CommentsForm from "./CommentsForm";
+import CommentsSection from "../comments/CommentsSection";
 const array = ["a"];
 const [item] = array;
 console.log(item === array);
@@ -46,8 +48,8 @@ function SinglePostPage() {
       </p>
       <p>{postObj.content}</p>
       <p className="lead fs-3">{postObj.categoryName}</p>
-
-      <section>
+      <CommentsSection postId={postId} />
+      {/* <section>
         <h2>Create a comment</h2>
         <CommentsForm />
 
@@ -55,7 +57,7 @@ function SinglePostPage() {
         <ul>
           <Comments />
         </ul>
-      </section>
+      </section> */}
     </div>
   );
 }
