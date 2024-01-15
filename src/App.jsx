@@ -10,6 +10,7 @@ import Home from "./Components/Home";
 import AddPost from "./Components/Posts/AddPost";
 import { useAuthContext } from "./store/authContext";
 import UsersOnlyPage from "./pages/UsersOnlyPage";
+import SinglePostPage from "./pages/SinglePostPage";
 
 function App() {
   // const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
@@ -84,6 +85,7 @@ function App() {
             isUserLoggedIn ? <AddPost /> : <Navigate to={"/users-only"} />
           }
         />
+        <Route path="/posts/:postId" element={<SinglePostPage />} />
         <Route path="/home" element={<Navigate to={"/"} />} />
         <Route path="/users-only" element={<UsersOnlyPage />} />
         {/* <Route path="/add" element={<AddPost handleAdd={handleAdd} />} /> */}

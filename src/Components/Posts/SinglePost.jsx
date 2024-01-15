@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 const postObj = {
   post_id: 1,
   title: "Post 1",
@@ -21,6 +22,9 @@ function SinglePost({ post }) {
         </p>
         <p className="card-text">Comment Count: {post.commentCount}</p>
         <p className="card-text">Category: {post.catagoryName}</p>
+        <Link to={`/posts/${post.post_id}`} className="btn btn-info">
+          Read more
+        </Link>
       </div>
     </li>
   );
