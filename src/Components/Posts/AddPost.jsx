@@ -15,6 +15,8 @@ function AddPost() {
   //   cat_id: 1,
   // };
 
+  const { userEmail } = useAuthContext();
+
   const categotries = [
     {
       cat_id: 1,
@@ -37,8 +39,8 @@ function AddPost() {
   const { token } = useAuthContext();
   const formik = useFormik({
     initialValues: {
-      title: "",
-      author: "",
+      title: "James Title",
+      author: userEmail,
       content: "",
       date: "",
       cat_id: 0,
@@ -83,7 +85,7 @@ function AddPost() {
           <SmartInput id="title" formik={formik} />
         </div>
         <div className="mb-3">
-          <SmartInput id="author" formik={formik} />
+          <SmartInput id="author" readonly formik={formik} />
         </div>
         <div className="mb-3">
           <SmartInput id="date" type="date" formik={formik} />
@@ -111,7 +113,7 @@ function AddPost() {
           <p className="text-danger">{formik.errors.cat_id}</p>
         )}
         <div>
-          <button type="submit" classNameName="btn btn-primary">
+          <button type="submit" className="btn btn-primary">
             Create Post
           </button>
         </div>

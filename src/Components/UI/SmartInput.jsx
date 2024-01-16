@@ -1,4 +1,9 @@
-export default function SmartInput({ id, formik, type = "text" }) {
+export default function SmartInput({
+  id,
+  formik,
+  type = "text",
+  readOnly = false,
+}) {
   //id = title
   const areaInput = (
     <textarea
@@ -6,7 +11,6 @@ export default function SmartInput({ id, formik, type = "text" }) {
       onBlur={formik.handleBlur}
       value={formik.values[id]}
       name={id}
-      type="text"
       className="form-control"
       id={id}
       rows="3"
@@ -20,6 +24,7 @@ export default function SmartInput({ id, formik, type = "text" }) {
           areaInput
         ) : (
           <input
+            disabled={readOnly}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values[id]}
