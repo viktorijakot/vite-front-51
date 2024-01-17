@@ -1,10 +1,10 @@
+import PropTypes from "prop-types";
 export default function SmartInput({
   id,
   formik,
   type = "text",
   readOnly = false,
 }) {
-  //id = title
   const areaInput = (
     <textarea
       onChange={formik.handleChange}
@@ -41,3 +41,9 @@ export default function SmartInput({
     </>
   );
 }
+SmartInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  formik: PropTypes.object,
+  type: PropTypes.string,
+  readOnly: PropTypes.bool,
+};

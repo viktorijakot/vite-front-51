@@ -1,16 +1,6 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../../store/authContext";
-const postObj = {
-  post_id: 1,
-  title: "Post 1",
-  author: "James Band",
-  userEmail: "j@b.com",
-  content: "Body of post 1",
-  date: "2023-12-26T22:00:00.000Z",
-  commentCount: 1,
-  catagoryName: "Comedy",
-};
 
 function SinglePost({ post }) {
   const { userEmail } = useAuthContext();

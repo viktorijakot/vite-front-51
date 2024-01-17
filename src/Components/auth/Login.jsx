@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useAuthContext } from "../../store/authContext";
 import { useNavigate } from "react-router-dom";
 
+for (let i = 1; i < 5; i++) {
+  console.log(i);
+}
 function Login() {
   const navigate = useNavigate();
   // pasiimti is konteksto

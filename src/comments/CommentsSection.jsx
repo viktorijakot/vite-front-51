@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import PropTypes from "prop-types";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useAuthContext } from "../store/authContext";
@@ -88,5 +87,7 @@ function CommentsSection({ postId }) {
     </section>
   );
 }
-
+CommentsSection.propTypes = {
+  postId: PropTypes.string.isRequired,
+};
 export default CommentsSection;

@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import SmartInput from "../Components/UI/SmartInput";
 import { useAuthContext } from "../store/authContext";
 import axios from "axios";
